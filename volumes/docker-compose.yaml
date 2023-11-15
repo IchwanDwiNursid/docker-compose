@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+  mysql-sample:
+    container_name: mysql-sample
+    image: mysql:5.6
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=sample
+    volumes:
+      - mysql-data1:/var/lib/mysql
+    ports:
+      - 3305:3306
+  mysql-sample2:
+    container_name: mysql-sample2
+    image: mysql:5.6
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=sample
+      - MYSQL_USER=sample
+      - MYSQL_PASSWORD=iwan
+    volumes:
+      - type: volume
+        source: mysql-data2
+        target: /var/lib/mysql
+        read_only: false
+    ports:
+      - 3304:3306
+
+volumes:
+  mysql-data1:
+    name: mysql-data1
+  mysql-data2:
+    name: mysql-data2
